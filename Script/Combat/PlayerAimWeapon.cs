@@ -6,7 +6,9 @@ public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aimTransform;
     // private Animator playerAnimator;
-    // private Animator gunAnimator;
+    private Animator gunAnimator;
+    private Animator casingAnimator;
+    private Animator muzzleFlashAnimator;
     private Coroutine shootingCoroutine;
 
     public GameObject bulletPrefab; // Assign the bullet prefab in the Inspector
@@ -21,8 +23,10 @@ public class PlayerAimWeapon : MonoBehaviour
         aimTransform = transform.Find("Aim");
         // playerAnimator = GetComponent<Animator>();
 
-        // Assign the gun animator either via inspector or find the relevant child
-        // gunAnimator = transform.Find("Aim/Gun").GetComponent<Animator>();
+        // Find the relevant child objects and their animators
+        gunAnimator = aimTransform.Find("Gun").GetComponent<Animator>();
+        casingAnimator = aimTransform.Find("Casing").GetComponent<Animator>();
+        muzzleFlashAnimator = aimTransform.Find("MuzzleFlash").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -56,7 +60,9 @@ public class PlayerAimWeapon : MonoBehaviour
     void Shoot()
     {
         // playerAnimator.SetTrigger("Shoot");
-        // gunAnimator.SetTrigger("ShootTrigger");
+        gunAnimator.SetTrigger("Shoot");
+        casingAnimator.SetTrigger("Eject");
+        muzzleFlashAnimator.SetTrigger("Flash");
 
         // Check if bulletPrefab is assigned
         if (bulletPrefab != null)
@@ -77,6 +83,8 @@ public class PlayerAimWeapon : MonoBehaviour
         }
     }
 }
+
+
 
 public static class UtilsClass
 {
