@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class BaseEnemy : MonoBehaviour
 {
-    public float health = 50f;
+    public int health;
+    public int damage;
 
-    public void TakeDamage(float damage)
+    protected virtual void Start()
+    {
+        // Pastikan musuh memiliki tag "Enemy"
+        gameObject.tag = "Enemy";
+    }
+
+    public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)

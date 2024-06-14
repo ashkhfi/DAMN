@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 791900553902665658}
   - component: {fileID: 4724608551010459396}
   - component: {fileID: 1222212567695877633}
-  - component: {fileID: 1814309524675685560}
   - component: {fileID: 5471788632089490007}
   m_Layer: 0
   m_Name: Kunti
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,10 +96,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 685980113778066915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08996d399d2094a4f8845c63d84311d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 21b28b39d0b19ab4a8661e4dba80db31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  damage: 10
 --- !u!70 &1222212567695877633
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,33 +136,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3.12, y: 3.73}
   m_Direction: 0
---- !u!50 &1814309524675685560
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 685980113778066915}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &5471788632089490007
 MonoBehaviour:
   m_ObjectHideFlags: 0

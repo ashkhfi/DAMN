@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float damage;
+    private int damage;
 
-    public void SetDamage(float damage)
+    public void SetDamage(int damage)
     {
         this.damage = damage;
     }
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the collided object has the Enemy script
-        Enemy enemy = collision.GetComponent<Enemy>();
+        BaseEnemy enemy = collision.GetComponent<BaseEnemy>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);

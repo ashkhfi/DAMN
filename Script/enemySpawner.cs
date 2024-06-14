@@ -1,30 +1,48 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
-public class enemySpawner : MonoBehaviour
+namespace EnemyNamespace
 {
-    public GameObject[] enemyPrefabs;
-    public float[] spawnTimes; // Waktu spawn untuk setiap tipe musuh
+    [System.Serializable]
+    public class Enemy
+    {
+        public GameObject prefab;
+        public float spawnStartTime;
+        public float spawnInterval;
+    }
+}
+
+public class EnemySpawner : MonoBehaviour
+{
+    public List<EnemyNamespace.Enemy> enemies; // Daftar musuh
     private Camera mainCamera;
 
     void Start()
     {
         mainCamera = Camera.main;
-        for (int i = 0; i < enemyPrefabs.Length; i++)
+        foreach (var enemy in enemies)
         {
-            float spawnTime = spawnTimes[i];
-            InvokeRepeating("SpawnEnemy", spawnTime, spawnTime);
+            // Memulai spawning untuk setiap musuh berdasarkan waktu mulai dan intervalnya
+            StartCoroutine(SpawnEnemy(enemy));
         }
     }
 
-    void SpawnEnemy()
+    private IEnumerator SpawnEnemy(EnemyNamespace.Enemy enemy)
     {
-        // Pilih prefab musuh secara acak
-        GameObject randomEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        // Tunggu hingga waktu mulai spawn
+        yield return new WaitForSeconds(enemy.spawnStartTime);
 
-        // Mendapatkan posisi layar di sisi kanan
-        Vector3 screenRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Random.Range(0, Screen.height), mainCamera.nearClipPlane));
-        // Tambahkan offset agar musuh muncul di luar layar
-        Vector3 spawnPosition = new Vector3(screenRight.x, screenRight.y, 0);
-        Instantiate(randomEnemyPrefab, spawnPosition, Quaternion.identity);
+        while (true)
+        {
+            // Mendapatkan posisi layar di sisi kanan
+            Vector3 screenRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Random.Range(0, Screen.height), mainCamera.nearClipPlane));
+            // Tambahkan offset agar musuh muncul di luar layar
+            Vector3 spawnPosition = new Vector3(screenRight.x, screenRight.y, 0);
+            Instantiate(enemy.prefab, spawnPosition, Quaternion.identity);
+
+            // Tunggu hingga waktu interval berikutnya
+            yield return new WaitForSeconds(enemy.spawnInterval);
+        }
     }
 }

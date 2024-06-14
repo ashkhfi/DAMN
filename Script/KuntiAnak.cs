@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class kuntiMovement : MonoBehaviour
+public class KuntiAnak : MonoBehaviour
 {
     public float speed = 2.0f;
     public float changeDirectionTime = 2.0f;

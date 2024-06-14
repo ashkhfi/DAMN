@@ -14,7 +14,7 @@ public class PlayerAimWeapon : MonoBehaviour
     public GameObject bulletPrefab; // Assign the bullet prefab in the Inspector
     public Transform firePoint; // Assign the fire point in the Inspector
     public float bulletSpeed = 20f;
-    public float damage = 10f;
+    public int damage = 10;
     public float fireRate = 0.1f; // Time between shots in seconds
 
     // Start is called before the first frame update
