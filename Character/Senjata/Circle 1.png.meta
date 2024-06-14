@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a310eedf1851c49478fc4cef1a6f84c7
+guid: e8562e0456cad4e49a72c0141ca5d257
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -129,12 +129,12 @@ TextureImporter:
       name: Circle_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 241
+        x: 85
+        y: 177
         width: 27
         height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.56495047, y: 0.4298553}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,6 +142,27 @@ TextureImporter:
       bones: []
       spriteID: beabb4de0afadaf4991221c7703be686
       internalID: 792589013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Circle 1_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 238
+        width: 4
+        height: 3
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6720e46c32a4fe7458d5fcb8056d9e2e
+      internalID: -1981081508
       vertices: []
       indices: 
       edges: []
@@ -190,6 +211,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Circle: -2413806693520163455
+      Circle 1_0: -1981081508
       Circle_0: 792589013
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
