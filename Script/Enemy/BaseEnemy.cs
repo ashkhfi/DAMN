@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
     public int health;
     public int damage;
+
+    public delegate void DeathEventHandler(GameObject enemy);
+    public event DeathEventHandler OnDeath;
 
     protected virtual void Start()
     {
@@ -24,7 +25,19 @@ public class BaseEnemy : MonoBehaviour
 
     void Die()
     {
-        // Handle the death of the target
+        // Tambahkan jumlah kill saat musuh mati
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddKill();
+        }
+
+        // Panggil event OnDeath sebelum menghancurkan objek
+        if (OnDeath != null)
+        {
+            OnDeath(gameObject);
+        }
+
+        // Hancurkan objek musuh
         Destroy(gameObject);
     }
 }

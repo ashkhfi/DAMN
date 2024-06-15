@@ -14,7 +14,6 @@ public class HealthBar : MonoBehaviour
         healthSlider.value = currentHealth;
     }
 
-
     // Fungsi untuk mengurangi kesehatan
     public void TakeDamage(int damage)
     {
@@ -24,6 +23,15 @@ public class HealthBar : MonoBehaviour
             currentHealth = 0;
         }
         UpdateHealthBar();
+
+        // Memeriksa kesehatan pemain setiap kali menerima kerusakan
+        CheckPlayerHealth();
+    }
+
+    // Metode untuk memeriksa kesehatan pemain
+    public bool IsPlayerDead()
+    {
+        return currentHealth <= 0;
     }
 
     // Fungsi untuk menambah kesehatan
@@ -41,5 +49,14 @@ public class HealthBar : MonoBehaviour
     private void UpdateHealthBar()
     {
         healthSlider.value = currentHealth;
+    }
+
+    // Metode untuk memeriksa kesehatan pemain
+    private void CheckPlayerHealth()
+    {
+        if (IsPlayerDead())
+        {
+            GameManager.Instance.EndGame(false); // Panggil EndGame dengan parameter false karena pemain kalah
+        }
     }
 }
