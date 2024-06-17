@@ -8,12 +8,14 @@ public class pocongMovement : MonoBehaviour
     public bool isGrounded; // Menunjukkan apakah Pocong menyentuh tanah
 
     private Rigidbody2D rb;
+    private Animator animator;
     private float nextJumpTime = 0f;
     private float minX, maxX, minY, maxY;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         // Mendapatkan batas-batas kamera
         Camera mainCamera = Camera.main;
@@ -29,6 +31,9 @@ public class pocongMovement : MonoBehaviour
     {
         // Cek apakah Pocong menyentuh tanah
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
+        
+        // Set animator parameter
+        animator.SetBool("isGrounded", isGrounded);
 
         // Gerakan horizontal
         float horizontalMovement = horizontalSpeed * Time.deltaTime;
@@ -48,6 +53,7 @@ public class pocongMovement : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, verticalSpeed);
+        animator.SetTrigger("Jump");
     }
 
     void ClampPosition()

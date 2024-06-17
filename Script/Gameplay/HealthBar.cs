@@ -5,7 +5,7 @@ public class HealthBar : MonoBehaviour
 {
     public Slider healthSlider; // Referensi ke komponen Slider
     public int maxHealth = 100; // Kesehatan maksimum
-    private int currentHealth; // Kesehatan saat ini
+    public int currentHealth; // Kesehatan saat ini
 
     void Start()
     {
