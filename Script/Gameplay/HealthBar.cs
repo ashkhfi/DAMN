@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using Enemy;
 public class HealthBar : MonoBehaviour
 {
     public Slider healthSlider; // Referensi ke komponen Slider

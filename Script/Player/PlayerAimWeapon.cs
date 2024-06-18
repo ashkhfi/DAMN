@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Enemy
+{
+    
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aimTransform;
@@ -100,4 +103,6 @@ public static class UtilsClass
         Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
         return worldPosition;
     }
+}
+
 }

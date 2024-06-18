@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Enemy
+{
+    public class Bullet : MonoBehaviour
 {
     private int damage;
 
@@ -23,4 +25,6 @@ public class Bullet : MonoBehaviour
         // Destroy the bullet on impact
         Destroy(gameObject);
     }
+}
+
 }

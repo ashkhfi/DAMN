@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace UI
+namespace Enemy
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Animator))]
     public class Movement : MonoBehaviour
     {
@@ -85,4 +85,6 @@ namespace UI
             }
         }
     }
+
 }
+    
