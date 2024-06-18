@@ -20,6 +20,9 @@ namespace UI
         // Reference to the SimpleFlash component
         private SimpleFlash simpleFlash;
 
+        public AudioSource audioSource; // Reference to the AudioSource component
+        public AudioClip takeDamageSound; // Sound effect for taking damage
+
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -42,6 +45,15 @@ namespace UI
             if (simpleFlash == null)
             {
                 Debug.LogWarning("SimpleFlash component is missing from the player.");
+            }
+
+            // Get the AudioSource component attached to this GameObject
+            audioSource = GetComponent<AudioSource>();
+
+            // Optionally, add a check to ensure the AudioSource component is present
+            if (audioSource == null)
+            {
+                Debug.LogWarning("AudioSource component is missing from the player.");
             }
         }
 
@@ -92,6 +104,12 @@ namespace UI
                     {
                         simpleFlash.Flash();
                     }
+
+                    // Play take damage sound
+                    if (takeDamageSound != null && audioSource != null)
+                    {
+                        audioSource.PlayOneShot(takeDamageSound);
+                    }
                 }
             }
         }
@@ -119,6 +137,12 @@ namespace UI
                     if (simpleFlash != null)
                     {
                         simpleFlash.Flash();
+                    }
+
+                    // Play take damage sound
+                    if (takeDamageSound != null && audioSource != null)
+                    {
+                        audioSource.PlayOneShot(takeDamageSound);
                     }
                 }
             }

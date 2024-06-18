@@ -11,6 +11,10 @@ public class BaseEnemy : MonoBehaviour
 
     private SimpleFlash simpleFlash; // Reference to the SimpleFlash component
 
+    public AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip takeDamageSound; // Sound effect for taking damage
+    public AudioClip deathSound; // Sound effect for dying
+
     protected virtual void Start()
     {
         // Ensure the enemy has the tag "Enemy"
@@ -24,6 +28,15 @@ public class BaseEnemy : MonoBehaviour
         {
             Debug.LogWarning("SimpleFlash component is missing from the enemy.");
         }
+
+        // Get the AudioSource component attached to this GameObject
+        audioSource = GetComponent<AudioSource>();
+
+        // Optionally, add a check to ensure the AudioSource component is present
+        if (audioSource == null)
+        {
+            Debug.LogWarning("AudioSource component is missing from the enemy.");
+        }
     }
 
     public void TakeDamage(int damage)
@@ -36,6 +49,12 @@ public class BaseEnemy : MonoBehaviour
             simpleFlash.Flash();
         }
 
+        // Play the take damage sound
+        if (takeDamageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(takeDamageSound);
+        }
+
         if (health <= 0)
         {
             Die();
@@ -44,6 +63,12 @@ public class BaseEnemy : MonoBehaviour
 
     void Die()
     {
+        // Play the death sound
+        if (deathSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+
         // Add a kill count when the enemy dies
         if (GameManager.Instance != null)
         {
