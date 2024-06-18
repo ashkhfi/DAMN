@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FlyingEnemy : MonoBehaviour
+public class GendeMovement : MonoBehaviour
 {
     public float flySpeed = 2f;
     public float dashSpeed = 10f;
