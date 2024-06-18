@@ -68,7 +68,7 @@ private void OnTriggerEnter2D(Collider2D collision)
         }
         else
         {
-            Debug.LogError("Movement script not found on collided object: " + collision.gameObject.name);
+            Debug.Log("Movement script not found on collided object: " + collision.gameObject.name);
         }
 
         // Destroy the fireball on impact
