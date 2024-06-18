@@ -1,13 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class GendeMovement : MonoBehaviour
+public class FlyingEnemy : MonoBehaviour
 {
     public float flySpeed = 2f;
     public float dashSpeed = 10f;
     public float detectionRange = 5f;
     public float dashDuration = 0.5f;
     public float dashCooldown = 2f;
+    public float dashDeviation = 0.5f; // Variasi arah dash
     public LayerMask playerLayer;
 
     private Transform player;
@@ -49,7 +50,9 @@ public class GendeMovement : MonoBehaviour
         if (playerCollider != null)
         {
             isDashing = true;
-            dashDirection = (player.position - transform.position).normalized;
+            Vector2 directionToPlayer = (player.position - transform.position).normalized;
+            dashDirection = directionToPlayer + new Vector2(Random.Range(-dashDeviation, dashDeviation), Random.Range(-dashDeviation, dashDeviation));
+            dashDirection.Normalize(); // Normalisasi vektor untuk memastikan panjangnya 1
             StartCoroutine(DashTowardsPlayer());
         }
     }

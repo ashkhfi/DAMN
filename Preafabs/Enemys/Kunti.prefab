@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1222212567695877633}
   - component: {fileID: 5471788632089490007}
   - component: {fileID: 5107133576968056908}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Kunti
   m_TagString: Enemy
   m_Icon: {fileID: 0}
