@@ -145,11 +145,11 @@ MonoBehaviour:
   dashSpeed: 10
   detectionRange: 5
   dashDuration: 0.5
-  dashCooldown: 3
+  dashCooldown: 2
   dashDeviation: 0.5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
 --- !u!61 &7832798386789172826
 BoxCollider2D:
   m_ObjectHideFlags: 0

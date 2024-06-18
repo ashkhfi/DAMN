@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d738a52a8fb26340991b835ff487f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 2
-  verticalSpeed: 5
+  horizontalSpeed: 1
+  verticalSpeed: 3
   jumpInterval: 2
   isGrounded: 0
 --- !u!114 &5850519701323099794
@@ -190,3 +190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   damage: 5
+  audioSource: {fileID: 0}
+  takeDamageSound: {fileID: 0}
+  deathSound: {fileID: 0}

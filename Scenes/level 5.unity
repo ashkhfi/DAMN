@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - prefab: {fileID: 4174873739851915288, guid: eea7e9be5d1048441a3f902767763f3c, type: 3}
+  - prefab: {fileID: 1717739845294935513, guid: 1727f3a31aeea27409f69775d00aff70, type: 3}
     totalMusuh: 10
 --- !u!4 &476562338
 Transform:
@@ -5704,6 +5704,7 @@ GameObject:
   - component: {fileID: 1880429815}
   - component: {fileID: 1880429814}
   - component: {fileID: 1880429813}
+  - component: {fileID: 1880429820}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -5792,6 +5793,8 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 10
   healthBar: {fileID: 368958242}
+  audioSource: {fileID: 0}
+  takeDamageSound: {fileID: 0}
 --- !u!114 &1880429816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5809,6 +5812,8 @@ MonoBehaviour:
   bulletSpeed: 20
   damage: 10
   fireRate: 5
+  audioSource: {fileID: 0}
+  shootSound: {fileID: 0}
 --- !u!50 &1880429817
 Rigidbody2D:
   serializedVersion: 4
@@ -5904,6 +5909,20 @@ Transform:
   - {fileID: 2000226072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1880429820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880429812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c818ebcb266c04ba50aaaff614369a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: a97ef9038b4096c49a988d4da67dee1d, type: 2}
+  duration: 0.125
 --- !u!1 &1889880313
 GameObject:
   m_ObjectHideFlags: 0

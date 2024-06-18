@@ -1774,6 +1774,7 @@ GameObject:
   - component: {fileID: 529229654}
   - component: {fileID: 529229653}
   - component: {fileID: 529229652}
+  - component: {fileID: 529229659}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1862,6 +1863,8 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 10
   healthBar: {fileID: 784354305}
+  audioSource: {fileID: 0}
+  takeDamageSound: {fileID: 0}
 --- !u!114 &529229655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,6 +1882,8 @@ MonoBehaviour:
   bulletSpeed: 20
   damage: 10
   fireRate: 5
+  audioSource: {fileID: 0}
+  shootSound: {fileID: 0}
 --- !u!50 &529229656
 Rigidbody2D:
   serializedVersion: 4
@@ -1974,6 +1979,20 @@ Transform:
   - {fileID: 435538708}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &529229659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529229651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c818ebcb266c04ba50aaaff614369a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: a97ef9038b4096c49a988d4da67dee1d, type: 2}
+  duration: 0.125
 --- !u!1 &583485808
 GameObject:
   m_ObjectHideFlags: 0
