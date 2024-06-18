@@ -1,91 +1,104 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-namespace Enemy
+public class FlyingEnemy : MonoBehaviour
 {
-    
-public class GendeMovement : BaseEnemy
-{
-    public float moveSpeed = 2.0f; // Kecepatan gerakan musuh
-    public float dashSpeed = 10.0f; // Kecepatan dash musuh
-    public float dashCooldown = 5.0f; // Waktu antara dash
-    public float dashDuration = 0.5f; // Durasi dash
-    public float dashDistance = 5.0f; // Jarak dash
+    public float flySpeed = 2f;
+    public float dashSpeed = 10f;
+    public float detectionRange = 5f;
+    public float dashDuration = 0.5f;
+    public float dashCooldown = 2f;
+    public LayerMask playerLayer;
 
-    private Transform playerTransform; // Referensi ke Transform pemain
-    private Rigidbody2D rb; // Komponen Rigidbody2D musuh
-    private float currentDashCooldown = 0f; // Timer cooldown untuk dash
-    private bool isDashing = false; // Status apakah musuh sedang dash
-    private Vector2 dashDirection; // Arah dash
+    private Transform player;
+    private bool isDashing = false;
+    private bool isCooldown = false;
+    private Vector2 dashDirection;
+    private Vector2 flyDirection;
+    private Camera mainCamera;
 
-    protected override void Start()
+    void Start()
     {
-        damage = 10; 
-        health = 100;
-        base.Start();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Cari pemain dan dapatkan Transform-nya
-        rb = GetComponent<Rigidbody2D>(); // Dapatkan komponen Rigidbody2D
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        mainCamera = Camera.main;
+        StartCoroutine(ChangeFlyDirection());
     }
 
-    private void Update()
+    void Update()
     {
-        if (playerTransform == null)
-            return; // Jika pemain tidak ditemukan, tidak melakukan apa-apa
-
-        // Update timer cooldown untuk dash
-        currentDashCooldown -= Time.deltaTime;
-
-        // Jika sedang dash, lakukan pergerakan dash
-        if (isDashing)
+        if (!isDashing)
         {
-            rb.velocity = dashDirection * dashSpeed;
-            return;
+            FlyAround();
+            if (!isCooldown)
+            {
+                DetectPlayer();
+            }
+        }
+        ConstrainToCamera();
+    }
+
+    void FlyAround()
+    {
+        transform.Translate(flyDirection * flySpeed * Time.deltaTime);
+    }
+
+    void DetectPlayer()
+    {
+        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, detectionRange, playerLayer);
+
+        if (playerCollider != null)
+        {
+            isDashing = true;
+            dashDirection = (player.position - transform.position).normalized;
+            StartCoroutine(DashTowardsPlayer());
+        }
+    }
+
+    IEnumerator DashTowardsPlayer()
+    {
+        float startTime = Time.time;
+
+        while (Time.time < startTime + dashDuration)
+        {
+            transform.Translate(dashDirection * dashSpeed * Time.deltaTime);
+            yield return null;
         }
 
-        // Gerakan musuh mengikuti pemain
-        FollowPlayer();
+        isDashing = false;
+        StartCoroutine(DashCooldown());
+    }
 
-        // Cek apakah musuh bisa melakukan dash (cooldown telah habis)
-        if (CanDash())
+    IEnumerator DashCooldown()
+    {
+        isCooldown = true;
+        yield return new WaitForSeconds(dashCooldown);
+        isCooldown = false;
+    }
+
+    IEnumerator ChangeFlyDirection()
+    {
+        while (true)
         {
-            StartCoroutine(Dash());
+            flyDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+            yield return new WaitForSeconds(Random.Range(1f, 3f)); // Change direction every 1 to 3 seconds
         }
     }
 
-    private void FollowPlayer()
+    void ConstrainToCamera()
     {
-        // Gerakan musuh menuju ke arah pemain dengan kecepatan yang ditentukan
-        Vector2 direction = (playerTransform.position - transform.position).normalized;
-        rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
+        Vector3 pos = transform.position;
+        Vector3 min = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+        Vector3 max = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
+
+        pos.x = Mathf.Clamp(pos.x, min.x, max.x);
+        pos.y = Mathf.Clamp(pos.y, min.y, max.y);
+
+        transform.position = pos;
     }
 
-    private bool CanDash()
+    private void OnDrawGizmosSelected()
     {
-        // Cek apakah cooldown untuk dash telah habis
-        return currentDashCooldown <= 0f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
-
-    private IEnumerator Dash()
-    {
-        isDashing = true; // Set status sedang dash
-        dashDirection = (playerTransform.position - transform.position).normalized; // Tentukan arah dash
-
-        // Set velocity untuk dash
-        rb.velocity = dashDirection * dashSpeed;
-
-        // Tunggu selama durasi dash
-        yield return new WaitForSeconds(dashDuration);
-
-        // Reset velocity setelah dash selesai
-        rb.velocity = Vector2.zero;
-
-        // Reset timer cooldown untuk dash
-        currentDashCooldown = dashCooldown;
-
-        isDashing = false; // Set status tidak sedang dash
-    }
-
-   
-}
-
 }

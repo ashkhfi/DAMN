@@ -1,8 +1,9 @@
 using UnityEngine;
+using BarthaSzabolcs.Tutorial_SpriteFlash; // Make sure to include the namespace for SimpleFlash
 
-namespace Enemy
+namespace UI
 {
-[RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Animator))]
     public class Movement : MonoBehaviour
     {
@@ -13,15 +14,18 @@ namespace Enemy
         private Animator animator;
         private bool idle;
 
-        // Referensi ke HealthBar player
+        // Reference to the player's HealthBar
         public HealthBar healthBar;
+
+        // Reference to the SimpleFlash component
+        private SimpleFlash simpleFlash;
 
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
 
-            // Jika healthBar belum di-set di Inspector, cari secara otomatis
+            // If healthBar is not set in the Inspector, find it automatically
             if (healthBar == null)
             {
                 healthBar = FindObjectOfType<HealthBar>();
@@ -29,6 +33,15 @@ namespace Enemy
                 {
                     Debug.LogError("HealthBar is not assigned and cannot be found in the scene!");
                 }
+            }
+
+            // Get the SimpleFlash component attached to this GameObject
+            simpleFlash = GetComponent<SimpleFlash>();
+
+            // Optionally, add a check to ensure the SimpleFlash component is present
+            if (simpleFlash == null)
+            {
+                Debug.LogWarning("SimpleFlash component is missing from the player.");
             }
         }
 
@@ -67,12 +80,18 @@ namespace Enemy
             }
             else if (collision.gameObject.CompareTag("Enemy"))
             {
-                // Mendapatkan script BaseEnemy dari musuh yang bertabrakan
+                // Get the BaseEnemy script from the collided enemy
                 BaseEnemy enemy = collision.gameObject.GetComponent<BaseEnemy>();
 
                 if (enemy != null && healthBar != null)
                 {
                     healthBar.TakeDamage(enemy.damage);
+
+                    // Trigger the flash effect when taking damage
+                    if (simpleFlash != null)
+                    {
+                        simpleFlash.Flash();
+                    }
                 }
             }
         }
@@ -84,7 +103,25 @@ namespace Enemy
                 idle = false;
             }
         }
-    }
 
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            // Example: Triggered by fireball
+            if (collision.gameObject.CompareTag("Fireball"))
+            {
+                Fireball fireball = collision.gameObject.GetComponent<Fireball>();
+
+                if (fireball != null && healthBar != null)
+                {
+                    healthBar.TakeDamage(fireball.damage);
+
+                    // Trigger the flash effect when hit by fireball
+                    if (simpleFlash != null)
+                    {
+                        simpleFlash.Flash();
+                    }
+                }
+            }
+        }
+    }
 }
-    

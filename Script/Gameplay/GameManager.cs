@@ -2,9 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace Enemy
-{
-    public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
@@ -148,6 +146,4 @@ namespace Enemy
         }
 
     }
-}
-
 }

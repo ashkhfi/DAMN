@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8798883453604565593}
   - component: {fileID: 3843249194039147996}
   - component: {fileID: 3995777658149678449}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PocongFix
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.03, y: -2.66, z: 0}
-  m_LocalScale: {x: 0.83, y: 0.8831058, z: 1.614158}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.5142, y: 0.5471, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,8 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d738a52a8fb26340991b835ff487f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  damage: 0
   horizontalSpeed: 1
   verticalSpeed: 2
   jumpInterval: 1
