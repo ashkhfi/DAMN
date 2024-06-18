@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aimTransform;
-    // private Animator playerAnimator;
     private Animator gunAnimator;
     private Animator casingAnimator;
     private Animator muzzleFlashAnimator;
@@ -17,19 +16,23 @@ public class PlayerAimWeapon : MonoBehaviour
     public int damage = 10;
     public float fireRate = 0.1f; // Time between shots in seconds
 
-    // Start is called before the first frame update
+    public AudioSource audioSource; // Assign the AudioSource component in the Inspector
+    public AudioClip shootSound; // Assign the shooting sound effect in the Inspector
+
     void Start()
     {
         aimTransform = transform.Find("Aim");
-        // playerAnimator = GetComponent<Animator>();
-
-        // Find the relevant child objects and their animators
         gunAnimator = aimTransform.Find("Gun").GetComponent<Animator>();
         casingAnimator = aimTransform.Find("Casing").GetComponent<Animator>();
         muzzleFlashAnimator = aimTransform.Find("MuzzleFlash").GetComponent<Animator>();
+
+        // Check if the AudioSource component is assigned, if not, add it
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
@@ -59,10 +62,15 @@ public class PlayerAimWeapon : MonoBehaviour
 
     void Shoot()
     {
-        // playerAnimator.SetTrigger("Shoot");
         gunAnimator.SetTrigger("Shoot");
         casingAnimator.SetTrigger("Eject");
         muzzleFlashAnimator.SetTrigger("Flash");
+
+        // Play the shooting sound
+        if (shootSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootSound);
+        }
 
         // Check if bulletPrefab is assigned
         if (bulletPrefab != null)
@@ -83,7 +91,6 @@ public class PlayerAimWeapon : MonoBehaviour
         }
     }
 }
-
 
 
 public static class UtilsClass
