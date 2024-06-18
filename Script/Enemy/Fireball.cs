@@ -1,4 +1,5 @@
 using UnityEngine;
+using BarthaSzabolcs.Tutorial_SpriteFlash;
 using UI; // Assuming Movement script is in the UI namespace
 
 public class Fireball : MonoBehaviour
@@ -13,6 +14,8 @@ public class Fireball : MonoBehaviour
     private Vector3 initialDirection;   // Initial direction towards the target
     private float randomDeviationAngle; // Random angle for deviation
 
+    private SimpleFlash simpleFlash;    // Reference to SimpleFlash component
+
     private void Start()
     {
         Destroy(gameObject, lifetime); // Destroy fireball after specified lifetime
@@ -26,6 +29,10 @@ public class Fireball : MonoBehaviour
         {
             initialDirection = transform.forward; // Fallback direction if no target
         }
+
+        simpleFlash = FindObjectOfType<SimpleFlash>(); // Find SimpleFlash in the scene if needed
+
+        FlipSprite(); // Flip the sprite according to the initial direction
     }
 
     private void Update()
@@ -50,9 +57,23 @@ public class Fireball : MonoBehaviour
         }
     }
 
-private void OnTriggerEnter2D(Collider2D collision)
+    private void FlipSprite()
     {
-        Debug.Log("Fireball collided with: " + collision.gameObject.name);
+        // Calculate the angle between the forward direction and the initial direction
+        float angle = Vector3.SignedAngle(Vector3.right, initialDirection, Vector3.forward);
+
+        // Flip the entire GameObject according to the direction
+        if (Mathf.Abs(angle) > 90f)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = -scale.x; // Flip horizontally
+            transform.localScale = scale;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Fireball triggered by: " + collision.gameObject.name);
 
         // Check if the collided object has the Movement script
         Movement movement = collision.GetComponent<Movement>();
@@ -63,8 +84,13 @@ private void OnTriggerEnter2D(Collider2D collision)
             {
                 healthBar.TakeDamage(damage);
                 Debug.Log("Player health after taking damage: " + healthBar.currentHealth);
+
+                // Trigger flash effect if SimpleFlash component exists
+                if (simpleFlash != null)
+                {
+                    simpleFlash.Flash();
+                }
             }
-            Explode();
         }
         else
         {
@@ -84,7 +110,4 @@ private void OnTriggerEnter2D(Collider2D collision)
 
         Destroy(gameObject); // Destroy the fireball
     }
-
-
 }
-

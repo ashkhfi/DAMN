@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 2553218468839889534}
   - component: {fileID: 6995043345160172618}
   - component: {fileID: 2726159317085996378}
+  - component: {fileID: 9011722653114258370}
   - component: {fileID: 1337636502553557269}
   - component: {fileID: 352960337008596402}
   - component: {fileID: 8860781714302427189}
   m_Layer: 7
   m_Name: Fireball
-  m_TagString: Enemy
+  m_TagString: Fireball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +110,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9011722653114258370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7763910350161910551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c818ebcb266c04ba50aaaff614369a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: a97ef9038b4096c49a988d4da67dee1d, type: 2}
+  duration: 0.1
 --- !u!50 &1337636502553557269
 Rigidbody2D:
   serializedVersion: 4
